@@ -2,7 +2,7 @@ Instalação do JAVA
 Instalar o Java
 
 O JMeter requer Java.
-Caso o Java não esteja instalado, instale o OpenJDK:
+**Caso o Java não esteja instalado, instale o OpenJDK:**
 Para Ubuntu/Debian:
 sudo apt install openjdk-11-jdk
 Para CentOS/RHEL:
