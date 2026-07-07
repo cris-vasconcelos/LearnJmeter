@@ -1,5 +1,4 @@
 Instalação do JAVA
-Instalar o Java
 
 O JMeter requer Java.
 Caso o Java não esteja instalado, instale o OpenJDK:
@@ -18,3 +17,183 @@ java -version
 openjdk version "11.0.26" 2025-01-21
 OpenJDK Runtime Environment (build 11.0.26+4-post-Ubuntu-1ubuntu122.04)
 OpenJDK 64-Bit Server VM (build 11.0.26+4-post-Ubuntu-1ubuntu122.04, mixed mode, sharing)
+Essa mensagem significa que o OpenJDK 11 JDK já está instalado e atualizado no seu sistema.
+
+openjdk-11-jdk is already the newest version (11.0.31+11-1ubuntu1~22.04.2).
+
+Ou seja:
+
+✅ O Java 11 JDK está instalado.
+✅ Você não precisa reinstalá-lo.
+
+Agora, confirme se ele está sendo usado corretamente.
+
+1. Verifique a versão do Java
+java -version
+
+Você deverá ver algo semelhante a:
+
+openjdk version "11.0.31" 2025-...
+OpenJDK Runtime Environment ...
+OpenJDK 64-Bit Server VM ...
+
+2. Verifique o compilador Java
+javac -version
+
+Resultado esperado: javac 11.0.31
+
+3. Verifique onde o Java está instalado
+which java
+
+e
+
+readlink -f $(which java)
+
+Normalmente retorna algo como:
+
+/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+4. Verifique a variável JAVA_HOME
+echo $JAVA_HOME
+
+Se estiver vazia, configure-a:
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
+Para tornar essa configuração permanente:
+
+echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+
+Caso você possua duas versões de JAVA, como trocar:
+1. Veja quais versões do Java estão instaladas
+sudo update-alternatives --config java
+
+Você verá algo parecido com:
+
+There are 2 choices for the alternative java:
+
+  Selection    Path                                            Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-21-openjdk-amd64/bin/java      2111      auto mode
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+  2            /usr/lib/jvm/java-21-openjdk-amd64/bin/java      2111      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number:
+
+Digite o número correspondente ao Java 11 (por exemplo, 1) e pressione Enter.
+
+2. Faça o mesmo para o compilador (javac)
+sudo update-alternatives --config javac
+
+Escolha a opção do Java 11.
+
+3. Verifique se a troca funcionou
+java -version
+javac -version
+
+O resultado deverá indicar a versão 11.
+
+4. Configure o JAVA_HOME (se necessário)
+
+Verifique:
+
+echo $JAVA_HOME
+
+Se ainda apontar para o Java diferente do 11, altere temporariamente:
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
+Para deixar permanente (caso use Bash):
+
+nano ~/.bashrc
+
+Altere ou adicione:
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
+Salve: ( crtl+o ,enter) e saia(crtl+x)
+
+Depois recarregue: source ~/.bashrc
+
+5. Confira todas as instalações de Java
+
+Se quiser ver todas as versões instaladas:
+
+update-java-alternatives --list
+
+ou
+
+ls /usr/lib/jvm
+
+Instalção do JMETER
+Baixar o Apache JMeter
+
+Acesse a página oficial de downloads do JMeter: https://jmeter.apache.org/download_jmeter.cgi.
+Na seção "Binaries", baixe o arquivo no formato .tgz.
+Extrair o arquivo
+
+Após o download, use o comando abaixo no terminal para descompactar o arquivo:
+tar -xvzf apache-jmeter-X.X.tgz (substitua X.X pela versão específica do JMeter).
+
+JMeter no Ubuntu
+
+Entre na pasta do JMeter:
+
+cd apache-jmeter-5.6.3
+
+Entre na pasta bin:
+
+cd bin
+
+Execute o JMeter:
+
+./jmeter
+
+Se aparecer "Permission denied"
+
+Dê permissão de execução:
+
+chmod +x jmeter
+./jmeter
+
+Opcional: executar jmeter de qualquer lugar
+
+Se você quiser poder digitar apenas:
+
+jmeter
+
+adicione o diretório bin ao seu PATH.
+
+PAra quem usa o Zsh, abra:
+
+nano ~/.zshrc
+
+E adicione ao final:
+
+export JMETER_HOME="$HOME/Documentos/JMETER/apache-jmeter-5.6.3"
+export PATH="$JMETER_HOME/bin:$PATH"
+
+Depois recarregue:
+
+source ~/.zshrc
+
+Agora teste:
+
+which jmeter
+jmeter
+
+Se tudo estiver configurado corretamente, which jmeter deverá mostrar algo como:
+
+/xx/xx/xx/JMETER/apache-jmeter-5.6.3/bin/jmeter
+
+e o JMeter abrirá de qualquer diretório.
+
+[Opcional]Para saber onde o JMeter estar: which jmeter
+Se ele retornar algo como: /usr/local/bin/jmeter , então o comando está disponível no PATH.
+
+Se não retornar nada, significa que o JMeter ainda não foi adicionado ao PATH.
+Bom estudo :)
